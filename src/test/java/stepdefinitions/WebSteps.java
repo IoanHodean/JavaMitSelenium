@@ -27,7 +27,7 @@ public class WebSteps {
         // Initialize page objects
         googlePage = new GooglePage(driver);
         wikipediaPage = new WikipediaPage(driver);
-        currentPage = new BasePage(driver);
+        currentPage = googlePage; // Default page
     }
     
     @Given("I open the browser")

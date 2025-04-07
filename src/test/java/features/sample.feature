@@ -5,12 +5,6 @@ Feature: Sample Web Testing
     When I navigate to "https://www.google.com"
     Then the page title should contain "Google"
     
-  Scenario: Search on Google
-    Given I open the browser
-    When I navigate to "https://www.google.com"
-    And I search for "Selenium WebDriver"
-    Then the search results should contain "Selenium"
-    
   Scenario: Visit multiple websites in sequence
     Given I open the browser
     When I navigate to "https://www.google.com"

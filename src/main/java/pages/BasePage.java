@@ -43,6 +43,35 @@ public abstract class BasePage {
     }
     
     /**
+     * Get the page title.
+     * 
+     * @return The page title
+     */
+    public String getPageTitle() {
+        return driver.getTitle();
+    }
+    
+    /**
+     * Check if page title contains expected text.
+     * 
+     * @param expectedTitle The expected text in title
+     * @return true if title contains text, false otherwise
+     */
+    public boolean pageTitleContains(String expectedTitle) {
+        return driver.getTitle().contains(expectedTitle);
+    }
+    
+    /**
+     * Navigate to a URL.
+     * 
+     * @param url The URL to navigate to
+     */
+    public void navigateTo(String url) {
+        driver.get(url);
+        waitForPageToLoad();
+    }
+    
+    /**
      * Wait for page to load completely.
      */
     public void waitForPageToLoad() {
@@ -110,6 +139,16 @@ public abstract class BasePage {
      */
     protected String getText(By locator) {
         return waitForElementVisible(locator).getText();
+    }
+    
+    /**
+     * Find element matching a locator.
+     * 
+     * @param locator Element locator
+     * @return WebElement matching the locator
+     */
+    protected WebElement findElement(By locator) {
+        return driver.findElement(locator);
     }
     
     /**

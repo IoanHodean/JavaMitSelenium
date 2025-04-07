@@ -3,130 +3,87 @@ package utils;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Utility class for loading and accessing configuration properties.
- * This class provides a central access point for configuration values
- * stored in properties files.
+ * Utility class for loading and accessing properties from config files.
  */
 public class ConfigProperties {
     private static final Logger LOGGER = Logger.getLogger(ConfigProperties.class.getName());
-    private static final String DEFAULT_CONFIG_FILE = "config.properties";
     private static final Properties properties = new Properties();
-    private static boolean isInitialized = false;
+    private static final String CONFIG_FILE = "config.properties";
+    private static boolean isLoaded = false;
     
     /**
-     * Initialize the properties by loading the default config file.
-     * This method is automatically called when the class is loaded.
+     * Load properties from the config file.
      */
-    static {
-        init();
-    }
-    
-    /**
-     * Initialize the properties by loading the default config file.
-     */
-    public static void init() {
-        loadProperties(DEFAULT_CONFIG_FILE);
-    }
-    
-    /**
-     * Load properties from a specific file.
-     * 
-     * @param fileName The name of the file to load
-     */
-    public static void loadProperties(String fileName) {
-        try (InputStream input = ConfigProperties.class.getClassLoader().getResourceAsStream(fileName)) {
+    private static void loadProperties() {
+        if (isLoaded) {
+            return;
+        }
+        
+        try (InputStream input = ConfigProperties.class.getClassLoader().getResourceAsStream(CONFIG_FILE)) {
             if (input == null) {
-                LOGGER.warning("Unable to find " + fileName);
+                LOGGER.warning("Unable to find " + CONFIG_FILE);
                 return;
             }
             
             properties.load(input);
-            isInitialized = true;
-            LOGGER.info("Loaded configuration from " + fileName);
-        } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Error loading properties file: " + fileName, e);
+            isLoaded = true;
+            LOGGER.info("Loaded configuration from " + CONFIG_FILE);
+        } catch (IOException ex) {
+            LOGGER.severe("Error loading properties file: " + ex.getMessage());
         }
     }
     
     /**
-     * Get a property value as a string.
+     * Get property value with a default value if not found.
      * 
-     * @param key The property key
-     * @return The property value, or null if not found
-     */
-    public static String getProperty(String key) {
-        if (!isInitialized) {
-            init();
-        }
-        
-        String value = properties.getProperty(key);
-        if (value == null) {
-            // Check if a system property with the same key exists
-            value = System.getProperty(key);
-        }
-        return value;
-    }
-    
-    /**
-     * Get a property value as a string, with a default value if not found.
-     * 
-     * @param key The property key
-     * @param defaultValue The default value to return if the key is not found
-     * @return The property value, or the default value if not found
+     * @param key Property key
+     * @param defaultValue Default value if property not found
+     * @return Property value or default value
      */
     public static String getProperty(String key, String defaultValue) {
-        String value = getProperty(key);
-        return value != null ? value : defaultValue;
+        loadProperties();
+        return properties.getProperty(key, defaultValue);
     }
     
     /**
-     * Get a property value as an integer.
+     * Get property value.
      * 
-     * @param key The property key
-     * @param defaultValue The default value to return if the key is not found or not a valid integer
-     * @return The property value as an integer, or the default value if not found or not a valid integer
+     * @param key Property key
+     * @return Property value or null if not found
      */
-    public static int getIntProperty(String key, int defaultValue) {
-        String value = getProperty(key);
-        if (value == null) {
-            return defaultValue;
-        }
-        
-        try {
-            return Integer.parseInt(value);
-        } catch (NumberFormatException e) {
-            LOGGER.warning("Property " + key + " is not a valid integer: " + value);
-            return defaultValue;
-        }
+    public static String getProperty(String key) {
+        return getProperty(key, null);
     }
     
     /**
-     * Get a property value as a boolean.
+     * Get boolean property value.
      * 
-     * @param key The property key
-     * @param defaultValue The default value to return if the key is not found
-     * @return The property value as a boolean, or the default value if not found
+     * @param key Property key
+     * @param defaultValue Default value if property not found
+     * @return Boolean property value
      */
     public static boolean getBooleanProperty(String key, boolean defaultValue) {
         String value = getProperty(key);
-        if (value == null) {
-            return defaultValue;
-        }
-        
-        return Boolean.parseBoolean(value);
+        return (value != null) ? Boolean.parseBoolean(value) : defaultValue;
     }
     
     /**
-     * Set a property value.
+     * Get integer property value.
      * 
-     * @param key The property key
-     * @param value The property value
+     * @param key Property key
+     * @param defaultValue Default value if property not found
+     * @return Integer property value
      */
-    public static void setProperty(String key, String value) {
-        properties.setProperty(key, value);
+    public static int getIntProperty(String key, int defaultValue) {
+        String value = getProperty(key);
+        try {
+            return (value != null) ? Integer.parseInt(value) : defaultValue;
+        } catch (NumberFormatException e) {
+            LOGGER.warning("Invalid integer property value for " + key + ": " + value);
+            return defaultValue;
+        }
     }
 } 

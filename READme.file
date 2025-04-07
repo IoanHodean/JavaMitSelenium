@@ -1,0 +1,18 @@
+automation-framework/
+│
+├── src/
+│   ├── main/
+│   │   └── java/
+│   │       └── pages/                 # Page Objects (LoginPage, HomePage, etc.)
+│   │       └── utils/                 # Helpers (DriverManager, ConfigReader, etc.)
+│   │       └── testrunner/           # Cucumber TestNG Runner
+│
+│   ├── test/
+│   │   └── java/
+│   │       └── stepdefinitions/       # Cucumber Step Definitions
+│   │       └── hooks/                # Hooks for setup/teardown
+│   │       └── features/             # Cucumber Feature Files (.feature)
+│
+├── testng.xml                        # TestNG Suite Configuration
+├── pom.xml                           # Maven Build Config
+└── extent-config.xml                 # Extent Report Customization
