@@ -23,7 +23,7 @@
 hs_err_pid*
 replay_pid*
 
-# Maven
+# Maven specific
 target/
 pom.xml.tag
 pom.xml.releaseBackup
@@ -35,49 +35,40 @@ buildNumber.properties
 .mvn/timing.properties
 .mvn/wrapper/maven-wrapper.jar
 
-# IntelliJ IDEA
+# Eclipse specific
+.settings/
+.classpath
+.project
+.factorypath
+
+# IntelliJ IDEA specific
 .idea/
 *.iws
 *.iml
 *.ipr
 
-# Eclipse
-.classpath
-.project
-.settings/
+# NetBeans specific
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
 
-# VS Code
+# VS Code specific
 .vscode/
+.code-workspace
 
-# Test reports
+# Selenium specific
+*.screenshot
+geckodriver.log
+chromedriver.log
 test-output/
-reports/
-extent-reports/
-screenshots/
 
-# Selenium WebDriver binaries
-drivers/
-*.exe
-chromedriver
-geckodriver
-msedgedriver
-IEDriverServer
+# Application specific
+*.properties.local
+config.local.properties
 
-# Cucumber reports
-cucumber-html-reports/
-cucumber-json-reports/
-cucumber.json
-
-# Temp files
-*.tmp
-*.temp
-*.swp
-*~
-
-# Mac OS
+# OS specific
 .DS_Store
-
-# Windows
-Thumbs.db
-ehthumbs.db
-Desktop.ini 
+Thumbs.db 
