@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <!-- Report theme -->
+        <theme>dark</theme>
+        
+        <!-- Document encoding -->
+        <encoding>UTF-8</encoding>
+        
+        <!-- Protocol for script and stylesheets -->
+        <protocol>https</protocol>
+        
+        <!-- Report information -->
+        <reportName>Automation Test Report</reportName>
+        <reportHeadline>Test Automation Report</reportHeadline>
+        
+        <!-- Document Title -->
+        <documentTitle>Automation Test Results</documentTitle>
+        
+        <!-- Report name - displayed at top-nav -->
+        <reportName>Test Automation Report</reportName>
+        
+        <!-- Settings for the report timestamp -->
+        <timeStampFormat>MMM dd, yyyy HH:mm:ss</timeStampFormat>
+        
+        <!-- Custom CSS -->
+        <css>
+            .category-container {padding-left: 20px !important;}
+            .category-container .category {color: #1984ab !important;}
+            .test-wrapper .test {border-bottom: 2px solid #e6e9ec !important;}
+        </css>
+        
+        <!-- Custom JavaScript -->
+        <scripts>
+            <![CDATA[
+                $(document).ready(function() {
+                    // Additional JavaScript customization
+                });
+            ]]>
+        </scripts>
+    </configuration>
+</extentreports> 
