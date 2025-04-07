@@ -52,6 +52,32 @@ buildNumber.properties
 # Test reports
 test-output/
 reports/
+extent-reports/
+screenshots/
+
+# Selenium WebDriver binaries
+drivers/
+*.exe
+chromedriver
+geckodriver
+msedgedriver
+IEDriverServer
+
+# Cucumber reports
+cucumber-html-reports/
+cucumber-json-reports/
+cucumber.json
+
+# Temp files
+*.tmp
+*.temp
+*.swp
+*~
 
 # Mac OS
-.DS_Store 
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini 
